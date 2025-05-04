@@ -54,11 +54,12 @@ class DeliveryDrone(FlyingRobot):
         else:
             self.current_load = self.hook_load(current_load)
 
-    def hook_load(self, weight_instance: Cargo) -> Cargo | None:
+    def hook_load(self, weight_instance: Cargo) -> Cargo:
         if hasattr(self, "current_load"):
             if (weight_instance.weight <= self.max_load_weight
                     and self.current_load is None):
                 self.current_load = weight_instance
+                return weight_instance
         else:
             if weight_instance.weight <= self.max_load_weight:
                 return weight_instance
